@@ -3,7 +3,7 @@ import { KeyboardButton } from "./KeyboardButton";
 
 export function App() {
   const [input, setInput] = useState("");
-  const [upperCase, setupperCase] = useState(false);
+  const [upperCase, setUpperCase] = useState(false);
   const [language, setLanguage] = useState(false);
 
   const alphabet = () => {
@@ -19,12 +19,6 @@ export function App() {
   };
 
   const numbers = [...new Array(10)].map((_, i) => i);
-
-  const buttonPressHandler = ({ target }) => {
-    setInput((prevState) => {
-      return prevState + target.value;
-    });
-  };
 
   const spaceHandler = () => {
     setInput((prevState) => {
@@ -48,13 +42,13 @@ export function App() {
               keyboardButtonValue={
                 upperCase === true ? letter.toUpperCase() : letter
               }
-              handleClick={buttonPressHandler}
+              handleClick={({target}) => setInput((prevState) => prevState + target.value)}
             />
         );
       })}
       <KeyboardButton
         keyboardButtonValue="Caps Lock"
-        handleClick={() => setupperCase((prevState) => !prevState)}
+        handleClick={() => setUpperCase((prevState) => !prevState)}
       />
       <KeyboardButton keyboardButtonValue="Space" handleClick={spaceHandler} />
       <KeyboardButton
